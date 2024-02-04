@@ -1,0 +1,176 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Grammar
+
+Rule 0     S' -> assignment
+Rule 1     assignment -> do next stm
+Rule 2     stm -> opencurlybraces next statements semicolon next updatingexpression semicolon next closecurlybraces while expr
+Rule 3     expr -> openparantheses condition closeparantheses semicolon
+
+Terminals, with rules where they appear
+
+closecurlybraces     : 2
+closeparantheses     : 3
+condition            : 3
+do                   : 1
+error                : 
+next                 : 1 2 2 2
+opencurlybraces      : 2
+openparantheses      : 3
+semicolon            : 2 2 3
+statements           : 2
+updatingexpression   : 2
+while                : 2
+
+Nonterminals, with rules where they appear
+
+assignment           : 0
+expr                 : 2
+stm                  : 1
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . assignment
+    (1) assignment -> . do next stm
+
+    do              shift and go to state 2
+
+    assignment                     shift and go to state 1
+
+state 1
+
+    (0) S' -> assignment .
+
+
+
+state 2
+
+    (1) assignment -> do . next stm
+
+    next            shift and go to state 3
+
+
+state 3
+
+    (1) assignment -> do next . stm
+    (2) stm -> . opencurlybraces next statements semicolon next updatingexpression semicolon next closecurlybraces while expr
+
+    opencurlybraces shift and go to state 5
+
+    stm                            shift and go to state 4
+
+state 4
+
+    (1) assignment -> do next stm .
+
+    $end            reduce using rule 1 (assignment -> do next stm .)
+
+
+state 5
+
+    (2) stm -> opencurlybraces . next statements semicolon next updatingexpression semicolon next closecurlybraces while expr
+
+    next            shift and go to state 6
+
+
+state 6
+
+    (2) stm -> opencurlybraces next . statements semicolon next updatingexpression semicolon next closecurlybraces while expr
+
+    statements      shift and go to state 7
+
+
+state 7
+
+    (2) stm -> opencurlybraces next statements . semicolon next updatingexpression semicolon next closecurlybraces while expr
+
+    semicolon       shift and go to state 8
+
+
+state 8
+
+    (2) stm -> opencurlybraces next statements semicolon . next updatingexpression semicolon next closecurlybraces while expr
+
+    next            shift and go to state 9
+
+
+state 9
+
+    (2) stm -> opencurlybraces next statements semicolon next . updatingexpression semicolon next closecurlybraces while expr
+
+    updatingexpression shift and go to state 10
+
+
+state 10
+
+    (2) stm -> opencurlybraces next statements semicolon next updatingexpression . semicolon next closecurlybraces while expr
+
+    semicolon       shift and go to state 11
+
+
+state 11
+
+    (2) stm -> opencurlybraces next statements semicolon next updatingexpression semicolon . next closecurlybraces while expr
+
+    next            shift and go to state 12
+
+
+state 12
+
+    (2) stm -> opencurlybraces next statements semicolon next updatingexpression semicolon next . closecurlybraces while expr
+
+    closecurlybraces shift and go to state 13
+
+
+state 13
+
+    (2) stm -> opencurlybraces next statements semicolon next updatingexpression semicolon next closecurlybraces . while expr
+
+    while           shift and go to state 14
+
+
+state 14
+
+    (2) stm -> opencurlybraces next statements semicolon next updatingexpression semicolon next closecurlybraces while . expr
+    (3) expr -> . openparantheses condition closeparantheses semicolon
+
+    openparantheses shift and go to state 16
+
+    expr                           shift and go to state 15
+
+state 15
+
+    (2) stm -> opencurlybraces next statements semicolon next updatingexpression semicolon next closecurlybraces while expr .
+
+    $end            reduce using rule 2 (stm -> opencurlybraces next statements semicolon next updatingexpression semicolon next closecurlybraces while expr .)
+
+
+state 16
+
+    (3) expr -> openparantheses . condition closeparantheses semicolon
+
+    condition       shift and go to state 17
+
+
+state 17
+
+    (3) expr -> openparantheses condition . closeparantheses semicolon
+
+    closeparantheses shift and go to state 18
+
+
+state 18
+
+    (3) expr -> openparantheses condition closeparantheses . semicolon
+
+    semicolon       shift and go to state 19
+
+
+state 19
+
+    (3) expr -> openparantheses condition closeparantheses semicolon .
+
+    $end            reduce using rule 3 (expr -> openparantheses condition closeparantheses semicolon .)
+
